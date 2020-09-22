@@ -1,8 +1,8 @@
 <div [ngClass]="setClasses()">
-    <p>
-        <input type="checkbox" name="" id="">
+   <p>  <!-- PUTTING IN AN EVENT, an event can call a function such as onDelete() which gets passed a variable  -->
+        <input (change)="onToggle(todo)" type="checkbox" name="" id="">
           {{ todo.title }}
-        <button class="del">x</button>
+        <button (click)="onDelete(todo)"class="del">x</button>
     </p>
 </div>
 
