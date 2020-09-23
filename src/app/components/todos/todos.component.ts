@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TodoService } from '../../services/todo.service'
 import {Todo} from '../../models/Todo' //the .. allows the path to exit todos then exit components and then find models 
 
 @Component({
@@ -10,34 +11,14 @@ export class TodosComponent implements OnInit {
 
   todos:Todo[]; //an array of Todo objects
 
-  constructor() { }//dont use constructor for much it is basically used to import services
+  constructor( private todoService:TodoService ) { }//dont use constructor for much it is basically used to import/initialize services
 
   ngOnInit(): void {
-    this.todos = [
-      {
-        id: 1,
-        title: "To do 1",
-        completed: false
-      },
-      {
-        id: 2,
-        title: "To do 2",
-        completed: false
-      },
-      {
-        id: 3,
-        title: "To do 3",
-        completed: false
-      },
-      {
-        id: 4,
-        title: "To do 4",
-        completed: false
-      },
-
-    ]
-
-
+    //we have subscribed to the observable which is an async data stream, 
+    this.todoService.getTodos().subscribe(todos=>{
+      this.todos = todos;                 //^ this is what i am getting in return in a Todo format
+      //this is add the returned todos to the array of Todo type 
+    });
   }
 
 }
