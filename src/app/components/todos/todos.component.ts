@@ -15,10 +15,16 @@ export class TodosComponent implements OnInit {
 
   ngOnInit(): void {
     //we have subscribed to the observable which is an async data stream, 
-    this.todoService.getTodos().subscribe(todos=>{
-      this.todos = todos;                 //^ this is what i am getting in return in a Todo format
+    this.todoService.getTodos().subscribe(todos1=>{
+      this.todos = todos1;                 //^ this is what i am getting in return in a Todo format
       //this is add the returned todos to the array of Todo type 
     });
   }
-
+  deleteTodo(todo:Todo){
+    console.log("deleting from parent")
+    //this deletes the index off the UI
+    this.todos = this.todos.filter(t => t.id !== todo.id)
+                                  //^loops through all todos by using t, and returns every single one that doesnt have todo.id
+    this.todoService.deleteTodo(todo).subscribe();
+  }                             
 }
